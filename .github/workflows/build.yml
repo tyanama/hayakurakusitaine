@@ -19,17 +19,13 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Gradle をセットアップ
+      - name: Gradle 8.8 をセットアップ
         uses: gradle/actions/setup-gradle@v4
-
-      - name: gradlew を生成
-        run: gradle wrapper
-
-      - name: 実行権限を付与
-        run: chmod +x gradlew
+        with:
+          gradle-version: '8.8'
 
       - name: Gradle でビルド
-        run: ./gradlew build --no-daemon
+        run: gradle build --no-daemon
         env:
           GRADLE_OPTS: "-Xmx2g"
 
