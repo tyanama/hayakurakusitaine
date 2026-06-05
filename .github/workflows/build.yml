@@ -1,4 +1,3 @@
-
 name: Build FastPlace Mod
 
 on:
@@ -19,6 +18,15 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+
+      - name: Gradle をセットアップ
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: gradlew を生成
+        run: gradle wrapper
+
+      - name: 実行権限を付与
+        run: chmod +x gradlew
 
       - name: Gradle でビルド
         run: ./gradlew build --no-daemon
