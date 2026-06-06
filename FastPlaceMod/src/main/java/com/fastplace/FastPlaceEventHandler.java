@@ -92,6 +92,14 @@ public class FastPlaceEventHandler {
         // 既に設置済みならスキップ
         if (session.hasPlaced(targetPos)) return;
 
+        // プレイヤーの足元・頭の位置には設置しない
+        BlockPos playerFeet = player.blockPosition();
+        BlockPos playerHead = playerFeet.above();
+        if (targetPos.equals(playerFeet) || targetPos.equals(playerHead)) {
+            endSession(uuid, player);
+            return;
+        }
+
         // 設置しようとしている場所が空気かどうか確認
         BlockState existing = level.getBlockState(targetPos);
         if (!existing.canBeReplaced()) return;
